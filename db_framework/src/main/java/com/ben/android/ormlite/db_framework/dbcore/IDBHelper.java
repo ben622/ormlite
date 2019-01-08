@@ -11,12 +11,7 @@ import com.ben.android.ormlite.db_framework.annotation.AnnotationModel;
  * @desc 数据库操作，升级表、删除表、创建表
  *
  * tb_ormlite_tabinfo
- * tb_id,tb_name,tb_update_time,tb
- *
- *
- *
- *
- *
+ * tb_id,tb_name,tb_update_time
  */
 public interface IDBHelper<T extends AnnotationModel> {
     void execSQL(SQLiteDatabase database,T t);

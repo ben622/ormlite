@@ -55,14 +55,14 @@ abstract class BaseLite {
         }
     }
 
-    protected static Context getApplicationContext() {
+    public static Context getApplicationContext() {
         if (mApplicationContext != null) {
             return mApplicationContext.get();
         }
         return null;
     }
 
-    protected static SQLiteDatabase getDatabase() {
+    protected  SQLiteDatabase getDatabase() {
         return database;
     }
 }

@@ -10,9 +10,15 @@ import java.util.HashMap;
  */
 public class AnnotationModel {
     private Class<?> calss;
+    private Field field;
     private Table table;
     private Column column;
-    private Field field;
+    private String tableName;
+    private String columnName;
+    private String columnValue;
+
+
+
 
     public Class<?> getCalss() {
         return calss;

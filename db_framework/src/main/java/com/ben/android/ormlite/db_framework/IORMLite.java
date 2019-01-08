@@ -7,6 +7,6 @@ import java.util.List;
  * @version 1.0
  * @create 2019/1/5
  */
-public interface IORMLite<T> {
+public interface IORMLite<T>  {
 
 }
