@@ -1,5 +1,7 @@
 package com.ben.android.ormlite.db_framework.ormcore;
 
+import com.ben.android.ormlite.db_framework.DBModel;
+
 import java.util.List;
 
 /**
@@ -8,6 +10,10 @@ import java.util.List;
  * @create 2019/1/10
  */
 public class ORMQuery<C,T> extends AORMQuery<C,T> {
+
+    public ORMQuery(DBModel model) {
+        super(model);
+    }
 
     @Override
     public List<T> findAll() {

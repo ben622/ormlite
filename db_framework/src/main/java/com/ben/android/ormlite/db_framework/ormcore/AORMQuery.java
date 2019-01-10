@@ -1,5 +1,6 @@
 package com.ben.android.ormlite.db_framework.ormcore;
 
+import com.ben.android.ormlite.db_framework.DBModel;
 import com.ben.android.ormlite.db_framework.ormcore.operator.IDBRetrieveOperator;
 
 /**
@@ -9,4 +10,7 @@ import com.ben.android.ormlite.db_framework.ormcore.operator.IDBRetrieveOperator
  */
 public abstract class AORMQuery<C ,T > extends AORMClause<C,T> implements IDBRetrieveOperator<T> {
 
+    public AORMQuery(DBModel model) {
+        super(model);
+    }
 }

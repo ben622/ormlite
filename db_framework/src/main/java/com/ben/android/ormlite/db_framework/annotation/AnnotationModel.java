@@ -13,12 +13,13 @@ public class AnnotationModel {
     private Field field;
     private Table table;
     private Column column;
-    private String tableName;
-    private String columnName;
-    private String columnValue;
 
+    private boolean primaryKey;
+    private boolean foreignKey;
+    private String foreignTableName;
+    private String foreignTableColumnName;
 
-
+    private HashMap<String, String> columns = new HashMap<>();
 
     public Class<?> getCalss() {
         return calss;
@@ -50,5 +51,45 @@ public class AnnotationModel {
 
     public void setField(Field field) {
         this.field = field;
+    }
+
+    public HashMap<String, String> getColumns() {
+        return columns;
+    }
+
+    public void setColumns(HashMap<String, String> columns) {
+        this.columns = columns;
+    }
+
+    public boolean isPrimaryKey() {
+        return primaryKey;
+    }
+
+    public void setPrimaryKey(boolean primaryKey) {
+        this.primaryKey = primaryKey;
+    }
+
+    public boolean isForeignKey() {
+        return foreignKey;
+    }
+
+    public void setForeignKey(boolean foreignKey) {
+        this.foreignKey = foreignKey;
+    }
+
+    public String getForeignTableName() {
+        return foreignTableName;
+    }
+
+    public void setForeignTableName(String foreignTableName) {
+        this.foreignTableName = foreignTableName;
+    }
+
+    public String getForeignTableColumnName() {
+        return foreignTableColumnName;
+    }
+
+    public void setForeignTableColumnName(String foreignTableColumnName) {
+        this.foreignTableColumnName = foreignTableColumnName;
     }
 }

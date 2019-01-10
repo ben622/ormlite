@@ -1,5 +1,6 @@
 package com.ben.android.ormlite.db_framework.ormcore;
 
+import com.ben.android.ormlite.db_framework.DBModel;
 import com.ben.android.ormlite.db_framework.ormcore.operator.IDBUpdateOperator;
 
 /**
@@ -8,4 +9,7 @@ import com.ben.android.ormlite.db_framework.ormcore.operator.IDBUpdateOperator;
  * @create 2019/1/10
  */
 public abstract class AORMUpdate<C,T> extends AORMClause<C,T> implements IDBUpdateOperator<T> {
+    public AORMUpdate(DBModel model) {
+        super(model);
+    }
 }

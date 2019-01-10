@@ -1,5 +1,6 @@
 package com.ben.android.ormlite.db_framework.ormcore;
 
+import com.ben.android.ormlite.db_framework.DBModel;
 import com.ben.android.ormlite.db_framework.ormcore.operator.IDBClauseOperator;
 
 /**
@@ -8,8 +9,19 @@ import com.ben.android.ormlite.db_framework.ormcore.operator.IDBClauseOperator;
  * @create 2019/1/10
  */
 public abstract class AORMClause<C,T > implements IDBClauseOperator<C>{
+    private DBModel model;
+
+    public AORMClause(DBModel model) {
+        this.model = model;
+    }
+
+    public DBModel getModel() {
+        return model;
+    }
+
     @Override
     public C between(String fieldName, int from, int to) {
+
         return null;
     }
 
@@ -25,22 +37,23 @@ public abstract class AORMClause<C,T > implements IDBClauseOperator<C>{
 
     @Override
     public C equalTo(String fieldName, String value) {
-        return null;
+        model.getWhereClause().append(model.getAnnotationModel().getColumns().get(fieldName) + "=" + value);
+        return (C) this;
     }
 
     @Override
     public C equalTo(String fieldName, int value) {
-        return null;
+        return equalTo(fieldName,String.valueOf(value));
     }
 
     @Override
     public C equalTo(String fieldName, long value) {
-        return null;
+        return equalTo(fieldName,String.valueOf(value));
     }
 
     @Override
     public C equalTo(String fieldName, double value) {
-        return null;
+        return equalTo(fieldName,String.valueOf(value));
     }
 
     @Override

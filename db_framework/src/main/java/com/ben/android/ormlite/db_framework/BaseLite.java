@@ -27,9 +27,10 @@ abstract class BaseLite {
      */
     protected static Condition.InitCondition condition = new Condition.InitCondition();
 
-    public static void init(Context context){
+    public static void init(Context context) {
         init(context, null);
     }
+
     public static void init(Context context, ORMLiteConfiguration configuration) {
         synchronized (condition) {
             try {
@@ -51,7 +52,6 @@ abstract class BaseLite {
                 //update database
 
 
-
                 condition.notify();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -67,7 +67,15 @@ abstract class BaseLite {
         return null;
     }
 
-    protected  SQLiteDatabase getDatabase() {
+    public static ORMLiteConfiguration getConfiguration() {
+        return configuration;
+    }
+
+    public static AnnotationManager getAnnotationManager() {
+        return annotationManager;
+    }
+
+    public static SQLiteDatabase getDatabase() {
         return database;
     }
 }

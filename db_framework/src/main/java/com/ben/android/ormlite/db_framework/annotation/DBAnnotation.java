@@ -1,6 +1,7 @@
 package com.ben.android.ormlite.db_framework.annotation;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.ben.android.ormlite.db_framework.utils.ClassUtil;
 
@@ -25,8 +26,11 @@ class DBAnnotation implements IParseAnnotation, IScannerAnnotation {
             annotationModel.setTable(cls.getAnnotation(Table.class));
             Field[] fields = cls.getFields();
             for (Field field : fields) {
-                annotationModel.setColumn(field.getAnnotation(Column.class));
+                Column column = field.getAnnotation(Column.class);
+                annotationModel.setColumn(column);
                 annotationModel.setField(field);
+                annotationModel.getColumns().put(field.getName(), TextUtils.isEmpty(column.value()) ? field.getName() : column.value());
+
             }
             annotationModelList.add(annotationModel);
         }
