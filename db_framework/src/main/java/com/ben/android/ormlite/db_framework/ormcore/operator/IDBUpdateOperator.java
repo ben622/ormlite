@@ -1,4 +1,4 @@
-package com.ben.android.ormlite.db_framework.dbcore.operator;
+package com.ben.android.ormlite.db_framework.ormcore.operator;
 
 /**
  * @author zhangchuan622@gmail.com
