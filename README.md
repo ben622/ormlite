@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #Simple
+=======
+# Simple
+>>>>>>> 3de46a53febb9a87c3cb4dd6ca6e26f73eaf524a
 ```
     //query
     //查询字段name中包含"张""王"的数据并返回全部

@@ -13,6 +13,7 @@ import java.util.List;
  */
 public abstract class AORMCreate<C,T> implements IDBCreateOperator<T>{
     private DBModel model;
+    private List<String> insertSqls;
 
     public DBModel getModel() {
         return model;
@@ -20,7 +21,7 @@ public abstract class AORMCreate<C,T> implements IDBCreateOperator<T>{
 
     public AORMCreate(DBModel model) {
         this.model = model;
-
+        insertSqls = new ArrayList<>();
     }
 
     public abstract AORMCreate<C,T> one(T insert);
