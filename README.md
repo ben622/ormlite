@@ -1,5 +1,5 @@
 # Simple
-
+```
 //query
 //查询字段name中包含"张""王"的数据并返回全部
 List<User> allUser = ORMLite.newLite().query(User.class).in("name", new String[]{"张", "王"}).findAll();
