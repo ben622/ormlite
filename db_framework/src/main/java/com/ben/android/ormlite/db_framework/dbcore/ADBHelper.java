@@ -1,4 +1,4 @@
-package com.ben.android.ormlite.db_framework.dbcore.upgrade;
+package com.ben.android.ormlite.db_framework.dbcore;
 
 import android.database.sqlite.SQLiteDatabase;
 
@@ -12,7 +12,11 @@ import com.ben.android.ormlite.db_framework.dbcore.IDBHelper;
  * @create 2019/1/7
  * @desc 程序对数据库表的操作进行日志记录，以提供对数据库版本自动更新支持
  */
-abstract class ADBHelper<T> implements IDBHelper<T>{
+public abstract class ADBHelper<T> implements IDBHelper<T>{
+    public ADBHelper() {
+
+    }
+
     @Override
     public void execSQL(DBModel model, T t) {
 

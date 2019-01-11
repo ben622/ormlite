@@ -1,11 +1,9 @@
 package com.ben.android.ormlite.db_framework.dbcore.upgrade;
 
-import android.database.sqlite.SQLiteDatabase;
-
 import com.ben.android.ormlite.db_framework.DBModel;
 import com.ben.android.ormlite.db_framework.annotation.AnnotationModel;
+import com.ben.android.ormlite.db_framework.dbcore.ADBHelper;
 import com.ben.android.ormlite.db_framework.dbcore.DBPrimTypes;
-import com.ben.android.ormlite.db_framework.dbcore.IDBHelper;
 
 /**
  * @author zhangchuan622@gmail.com
@@ -13,7 +11,7 @@ import com.ben.android.ormlite.db_framework.dbcore.IDBHelper;
  * @create 2019/1/7
  * @desc 创建数据库表
  */
-class CreateTableHelper<T> implements IDBHelper<T> {
+public class CreateTableHelper<T> extends ADBHelper<T> {
 
     StringBuilder temp = new StringBuilder();
 
@@ -37,12 +35,10 @@ class CreateTableHelper<T> implements IDBHelper<T> {
         temp.setLength(0);
         for (int i = 0; i < annotationModel.getValueModels().size(); i++) {
             AnnotationModel.ValueModel valueModel = annotationModel.getValueModels().get(i);
-            if (valueModel.isPrimaryKey()) {
-                Class<?> type = valueModel.getField().getType();
-                temp.append(valueModel.getValue() + " ");
-                temp.append(DBPrimTypes.TYPES_MAPPINGS.get(type.getName()));
-                temp.append(valueModel.isPrimaryKey() ? " PRIMARY KEY  NOT NULL, " : ", ");
-            }
+            Class<?> type = valueModel.getField().getType();
+            temp.append(" "+valueModel.getValue() + " ");
+            temp.append(DBPrimTypes.TYPES_MAPPINGS.get(type.getName()));
+            temp.append(valueModel.isPrimaryKey() ? " PRIMARY KEY  NOT NULL, " : ",");
 
         }
         temp.setLength(temp.length() - 1);

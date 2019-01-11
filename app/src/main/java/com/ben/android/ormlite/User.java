@@ -9,27 +9,12 @@ import java.util.List;
 public class User {
     @Column(primaryKey = true)
     private int userId;
-    @Column
+    @Column(value = "tb_phone")
     private String phone;
     @Column
     private String userName;
 
 
-    @Table("tb_order")
-    class Order{
-        @Column(primaryKey = true)
-        private String orderId;
-        @Column
-        private String orderName;
-
-        @Column(foreignKey = true)
-        private User user;
-
-
-        @Column(foreignKey = true,foreignTableName = "tb_user",foreignTableColumnName = "userId")
-        private List<User> users;
-
-    }
 
     /**
      *

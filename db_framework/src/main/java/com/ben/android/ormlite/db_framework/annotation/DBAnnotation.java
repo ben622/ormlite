@@ -22,11 +22,11 @@ class DBAnnotation implements IParseAnnotation, IScannerAnnotation {
         for (int i = 0; classs != null && i < classs.size(); i++) {
             AnnotationModel annotationModel = new AnnotationModel();
             Class<?> cls = classs.get(i);
-            annotationModel.setCalss(cls);
+            annotationModel.setCls(cls);
             Table tab = cls.getAnnotation(Table.class);
             annotationModel.setTable(tab);
             annotationModel.setTableName(TextUtils.isEmpty(tab.value()) ? cls.getSimpleName() : tab.value());
-            Field[] fields = cls.getFields();
+            Field[] fields = cls.getDeclaredFields();
             for (Field field : fields) {
                 annotationModel.getValueModels().add(parseValueModel(field));
             }

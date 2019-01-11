@@ -9,8 +9,5 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        ORMLite.init(this,new ORMLiteConfiguration.Builder()
-                .cache(true)
-                .build());
     }
 }

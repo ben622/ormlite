@@ -16,5 +16,9 @@ public class DBPrimTypes {
         TYPES_MAPPINGS.put("java.lang.Double", "REAL");
         TYPES_MAPPINGS.put("java.lang.Float", "REAL");
         TYPES_MAPPINGS.put("java.lang.Boolean", "BOOLEAN");
+        TYPES_MAPPINGS.put("int", "INTEGER");
+        TYPES_MAPPINGS.put("double", "REAL");
+        TYPES_MAPPINGS.put("float", "REAL");
+        TYPES_MAPPINGS.put("boolean", "BOOLEAN");
     }
 }

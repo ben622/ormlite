@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.ben.android.ormlite.db_framework.annotation.AnnotationManager;
+import com.ben.android.ormlite.db_framework.dbcore.DBCoreManager;
 import com.ben.android.ormlite.db_framework.dbcore.SQLiteDatabaseFactory;
 import com.ben.android.ormlite.db_framework.dbcore.synchronize.Condition;
 
@@ -34,7 +35,6 @@ abstract class BaseLite {
     public static void init(Context context, ORMLiteConfiguration configuration) {
         synchronized (condition) {
             try {
-                condition.wait();
                 condition.state = Condition.InitState.START_INIT;
 
                 if (context == null) {
@@ -50,9 +50,8 @@ abstract class BaseLite {
                 //open database
                 database = SQLiteDatabaseFactory.openOrCreateDatabase(BaseLite.configuration);
                 //update database
+                DBCoreManager.initialize(annotationManager);
 
-
-                condition.notify();
             } catch (Exception e) {
                 e.printStackTrace();
                 condition.state = Condition.InitState.INIT_ERROR;

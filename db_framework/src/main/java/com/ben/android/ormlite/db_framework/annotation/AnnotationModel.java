@@ -11,7 +11,7 @@ import java.util.List;
  * @create 2019/1/5
  */
 public class AnnotationModel {
-    private Class<?> calss;
+    private Class<?> cls;
     private Table table;
     private String tableName;
 
@@ -21,11 +21,12 @@ public class AnnotationModel {
         valueModels = new ArrayList<>();
     }
 
-    public Class<?> getCalss() {
-        return calss;
+    public Class<?> getCls() {
+        return cls;
     }
-    public void setCalss(Class<?> calss) {
-        this.calss = calss;
+
+    public void setCls(Class<?> cls) {
+        this.cls = cls;
     }
 
     public String getTableName() {

@@ -1,5 +1,7 @@
 package com.ben.android.ormlite.db_framework;
 
+import android.content.Context;
+
 import com.ben.android.ormlite.db_framework.ormcore.AORMCreate;
 import com.ben.android.ormlite.db_framework.ormcore.AORMDelete;
 import com.ben.android.ormlite.db_framework.ormcore.AORMQuery;
@@ -19,7 +21,13 @@ import java.util.List;
  * @create 2019/1/5
  */
 public final class ORMLite extends BaseLite {
+    public static void init(Context context) {
+        init(context, null);
+    }
 
+    public static void init(Context context, ORMLiteConfiguration configuration) {
+        BaseLite.init(context, configuration);
+    }
     public static ORMLite newLite() {
         return new ORMLite();
     }

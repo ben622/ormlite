@@ -23,8 +23,8 @@ public class AnnotationManager {
 
     private void initAnnotation() {
         dbAnnotation = new DBAnnotation();
-        annotationManager.scaner();
-        annotationManager.parse();
+        scaner();
+        parse();
     }
 
     public static AnnotationManager initialize(Context context) {
@@ -56,7 +56,7 @@ public class AnnotationManager {
     }
     public <T> AnnotationModel getAnnotationModelByClass(Class<T> cls){
         for (AnnotationModel annotationModel : annotationModelList) {
-            if (annotationModel.getClass().equals(cls)) {
+            if (annotationModel.getCls().equals(cls)) {
                 return annotationModel;
             }
         }

@@ -37,7 +37,7 @@ public abstract class AORMClause<C,T > implements IDBClauseOperator<C>{
 
     @Override
     public C equalTo(String fieldName, String value) {
-        model.getWhereClause().append(model.getAnnotationModel().getColumns().get(fieldName) + "=" + value);
+
         return (C) this;
     }
 

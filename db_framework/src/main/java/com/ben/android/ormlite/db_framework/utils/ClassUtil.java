@@ -8,6 +8,7 @@ import android.os.Build;
 import android.util.Log;
 
 import com.ben.android.ormlite.db_framework.BuildConfig;
+import com.ben.android.ormlite.db_framework.annotation.Table;
 
 import java.io.File;
 import java.io.IOException;
@@ -65,7 +66,8 @@ public class ClassUtil {
                 Enumeration<String> dexEntries = dexfile.entries();
                 while (dexEntries.hasMoreElements()) {
                     String className = dexEntries.nextElement();
-                    if (className.contains(packageName) && className.toLowerCase().contains("activity")) {
+
+                    if (className.contains(packageName) && Class.forName(className).getAnnotation(Table.class)!=null) {
                         classNames.add(className);
                     }
                 }
