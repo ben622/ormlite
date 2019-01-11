@@ -1,6 +1,7 @@
 package com.ben.android.ormlite.db_framework.annotation;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.ben.android.ormlite.db_framework.utils.ClassUtil;
 
@@ -22,11 +23,12 @@ class DBAnnotation implements IParseAnnotation, IScannerAnnotation {
             AnnotationModel annotationModel = new AnnotationModel();
             Class<?> cls = classs.get(i);
             annotationModel.setCalss(cls);
-            annotationModel.setTable(cls.getAnnotation(Table.class));
+            Table tab = cls.getAnnotation(Table.class);
+            annotationModel.setTable(tab);
+            annotationModel.setTableName(TextUtils.isEmpty(tab.value()) ? cls.getSimpleName() : tab.value());
             Field[] fields = cls.getFields();
             for (Field field : fields) {
-                annotationModel.setColumn(field.getAnnotation(Column.class));
-                annotationModel.setField(field);
+                annotationModel.getValueModels().add(parseValueModel(field));
             }
             annotationModelList.add(annotationModel);
         }
@@ -58,6 +60,20 @@ class DBAnnotation implements IParseAnnotation, IScannerAnnotation {
             e.printStackTrace();
         }
         return classList;
+    }
+
+    private AnnotationModel.ValueModel parseValueModel(Field field) {
+        AnnotationModel.ValueModel valueModel = new AnnotationModel.ValueModel();
+        Column annotation = field.getAnnotation(Column.class);
+        valueModel.setValue(TextUtils.isEmpty(annotation.value()) ? field.getName() : annotation.value());
+        valueModel.setPrimaryKey(annotation.primaryKey());
+        valueModel.setForeignKey(annotation.foreignKey());
+        valueModel.setForeignTableName(annotation.foreignTableName());
+        valueModel.setForeignTableColumnName(annotation.foreignTableColumnName());
+
+        valueModel.setColumn(annotation);
+        valueModel.setField(field);
+        return valueModel;
     }
 
 

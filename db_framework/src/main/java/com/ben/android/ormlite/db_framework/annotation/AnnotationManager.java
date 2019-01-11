@@ -54,4 +54,12 @@ public class AnnotationManager {
     public List<AnnotationModel> getAnnotationModelList() {
         return annotationModelList;
     }
+    public <T> AnnotationModel getAnnotationModelByClass(Class<T> cls){
+        for (AnnotationModel annotationModel : annotationModelList) {
+            if (annotationModel.getClass().equals(cls)) {
+                return annotationModel;
+            }
+        }
+        return null;
+    }
 }

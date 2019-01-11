@@ -2,6 +2,7 @@ package com.ben.android.ormlite.db_framework.dbcore;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import com.ben.android.ormlite.db_framework.DBModel;
 import com.ben.android.ormlite.db_framework.annotation.AnnotationModel;
 
 /**
@@ -13,6 +14,6 @@ import com.ben.android.ormlite.db_framework.annotation.AnnotationModel;
  * tb_ormlite_tabinfo
  * tb_id,tb_name,tb_update_time
  */
-public interface IDBHelper<T extends AnnotationModel> {
-    void execSQL(SQLiteDatabase database,T t);
+public interface IDBHelper<T> {
+    void execSQL(DBModel model,T t);
 }

@@ -1,7 +1,9 @@
 package com.ben.android.ormlite.db_framework.annotation;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author zhangchuan622@gmail.com
@@ -10,22 +12,28 @@ import java.util.HashMap;
  */
 public class AnnotationModel {
     private Class<?> calss;
-    private Field field;
     private Table table;
-    private Column column;
     private String tableName;
-    private String columnName;
-    private String columnValue;
 
+    private List<ValueModel> valueModels;
 
-
+    public AnnotationModel() {
+        valueModels = new ArrayList<>();
+    }
 
     public Class<?> getCalss() {
         return calss;
     }
-
     public void setCalss(Class<?> calss) {
         this.calss = calss;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 
     public Table getTable() {
@@ -36,19 +44,76 @@ public class AnnotationModel {
         this.table = table;
     }
 
-    public Column getColumn() {
-        return column;
+    public List<ValueModel> getValueModels() {
+        return valueModels;
     }
 
-    public void setColumn(Column column) {
-        this.column = column;
+    public void setValueModels(List<ValueModel> valueModels) {
+        this.valueModels = valueModels;
     }
 
-    public Field getField() {
-        return field;
-    }
+    public static class ValueModel{
+        private String value;
+        private boolean primaryKey;
+        private boolean foreignKey;
+        private String foreignTableName;
+        private String foreignTableColumnName;
+        private Field field;
+        private Column column;
+        public String getValue() {
+            return value;
+        }
 
-    public void setField(Field field) {
-        this.field = field;
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        public boolean isPrimaryKey() {
+            return primaryKey;
+        }
+
+        public void setPrimaryKey(boolean primaryKey) {
+            this.primaryKey = primaryKey;
+        }
+
+        public boolean isForeignKey() {
+            return foreignKey;
+        }
+
+        public void setForeignKey(boolean foreignKey) {
+            this.foreignKey = foreignKey;
+        }
+
+        public String getForeignTableName() {
+            return foreignTableName;
+        }
+
+        public void setForeignTableName(String foreignTableName) {
+            this.foreignTableName = foreignTableName;
+        }
+
+        public String getForeignTableColumnName() {
+            return foreignTableColumnName;
+        }
+
+        public void setForeignTableColumnName(String foreignTableColumnName) {
+            this.foreignTableColumnName = foreignTableColumnName;
+        }
+
+        public Field getField() {
+            return field;
+        }
+
+        public void setField(Field field) {
+            this.field = field;
+        }
+
+        public Column getColumn() {
+            return column;
+        }
+
+        public void setColumn(Column column) {
+            this.column = column;
+        }
     }
 }

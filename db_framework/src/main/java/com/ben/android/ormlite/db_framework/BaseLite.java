@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.ben.android.ormlite.db_framework.annotation.AnnotationManager;
 import com.ben.android.ormlite.db_framework.dbcore.SQLiteDatabaseFactory;
+import com.ben.android.ormlite.db_framework.dbcore.synchronize.Condition;
 
 import java.lang.ref.WeakReference;
 
@@ -20,17 +21,21 @@ abstract class BaseLite {
     private static ORMLiteConfiguration configuration;
     private static SQLiteDatabase database;
 
-    protected static ORMLite mOrmLite;
     protected static String TAG = DBConstants.DB_TAG;
     /**
-     * 条件变量，用于处理在多线程环境下操作流程完整性,对数据的操作需要对此变量做检查
+     * ORMLite初始化条件变量，用于处理在多线程环境下操作流程完整性,对数据的操作需要对此变量做检查
      */
-    protected static Condition condition = new Condition();
+    protected static Condition.InitCondition condition = new Condition.InitCondition();
 
-    protected static void init(Context context, ORMLiteConfiguration configuration) {
+    public static void init(Context context) {
+        init(context, null);
+    }
+
+    public static void init(Context context, ORMLiteConfiguration configuration) {
         synchronized (condition) {
             try {
                 condition.wait();
+                condition.state = Condition.InitState.START_INIT;
 
                 if (context == null) {
                     throw new IllegalArgumentException("Non-null context required.");
@@ -47,10 +52,10 @@ abstract class BaseLite {
                 //update database
 
 
-
                 condition.notify();
             } catch (Exception e) {
                 e.printStackTrace();
+                condition.state = Condition.InitState.INIT_ERROR;
             }
         }
     }
@@ -62,7 +67,15 @@ abstract class BaseLite {
         return null;
     }
 
-    protected  SQLiteDatabase getDatabase() {
+    public static ORMLiteConfiguration getConfiguration() {
+        return configuration;
+    }
+
+    public static AnnotationManager getAnnotationManager() {
+        return annotationManager;
+    }
+
+    public static SQLiteDatabase getDatabase() {
         return database;
     }
 }
