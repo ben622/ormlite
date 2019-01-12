@@ -3,8 +3,10 @@ package com.ben.android.ormlite.db_framework.ormcore;
 import com.ben.android.ormlite.db_framework.DBModel;
 import com.ben.android.ormlite.db_framework.annotation.AnnotationModel;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -14,12 +16,14 @@ import java.util.List;
  */
 public class ORMCreate<C, T> extends AORMCreate<C, T> {
     private List<String> sqls;
+    private List<List<Object>> values;
     private StringBuilder temp = new StringBuilder();
 
 
     public ORMCreate(DBModel model) {
         super(model);
         sqls = new ArrayList<>();
+        values = new ArrayList<>();
     }
 
     @Override
@@ -56,15 +60,16 @@ public class ORMCreate<C, T> extends AORMCreate<C, T> {
 
     @Override
     public long insert() {
-        int responded = -1;
+        int responded = 0;
         //Use Transaction
         getModel().getDatabase().beginTransaction();
-        for (String sql : sqls) {
-             getModel().getDatabase().execSQL(sql);
+        for (int i = 0; i < sqls.size(); i++) {
+            getModel().getDatabase().execSQL(sqls.get(i), this.values.get(i).toArray(new Object[this.values.get(i).size()]));
             responded++;
         }
+        //commit data
+        getModel().getDatabase().setTransactionSuccessful();
         getModel().getDatabase().endTransaction();
-
         return responded;
     }
 
@@ -80,7 +85,7 @@ public class ORMCreate<C, T> extends AORMCreate<C, T> {
         for (AnnotationModel.ValueModel valueModel : annotationModel.getValueModels()) {
             temp.append(valueModel.getValue() + ",");
         }
-        temp.setLength(temp.length() - 1);
+        temp.setLength(temp.length() == 0 ? 0 : temp.length() - 1);
         return temp;
     }
 
@@ -88,15 +93,25 @@ public class ORMCreate<C, T> extends AORMCreate<C, T> {
         temp.setLength(0);
         //v1,v2,v3
         for (AnnotationModel.ValueModel valueModel : annotationModel.getValueModels()) {
-            Object value = valueModel.getField().get(t);
-            if (value instanceof String) {
-                temp.append("'" + value + "',");
-            } else {
-                temp.append(value + ",");
-            }
+            temp.append("?,");
         }
-        temp.setLength(temp.length() - 1);
+        temp.setLength(temp.length() == 0 ? 0 : temp.length() - 1);
+        setValues(annotationModel, t);
         return temp;
     }
 
+
+    private void setValues(AnnotationModel annotationModel, T t) throws IllegalAccessException {
+        ArrayList<Object> values = new ArrayList<>();
+        for (AnnotationModel.ValueModel valueModel : annotationModel.getValueModels()) {
+            valueModel.getField().setAccessible(true);
+            Object value = valueModel.getField().get(t);
+            if (value instanceof String) {
+                values.add(String.valueOf(value));
+            } else {
+                values.add(value);
+            }
+        }
+        this.values.add(values);
+    }
 }

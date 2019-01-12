@@ -18,7 +18,7 @@ public class CreateTableHelper<T> extends ADBHelper<T> {
     @Override
     public void execSQL(DBModel model, T t) {
         model.getWhereClause().setLength(0);
-        model.getWhereClause().append("CREATE TABLE ");
+        model.getWhereClause().append("CREATE TABLE IF NOT EXISTS ");
         //TABLE NAME
         model.getWhereClause().append(model.getAnnotationModel().getTableName());
         model.getWhereClause().append(" ( ");

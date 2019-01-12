@@ -12,4 +12,6 @@ public abstract class AORMUpdate<C,T> extends AORMClause<C,T> implements IDBUpda
     public AORMUpdate(DBModel model) {
         super(model);
     }
+
+
 }
