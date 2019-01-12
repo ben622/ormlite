@@ -9,7 +9,7 @@ import java.util.List;
  * @version 1.0
  * @create 2019/1/10
  */
-public class ORMQuery<C,T> extends AORMQuery<C,T> {
+public class ORMQuery<T> extends AORMQuery<ORMQuery<T>,T> {
 
     public ORMQuery(DBModel model) {
         super(model);

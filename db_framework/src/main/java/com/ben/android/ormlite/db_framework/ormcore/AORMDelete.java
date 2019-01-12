@@ -8,7 +8,7 @@ import com.ben.android.ormlite.db_framework.ormcore.operator.IDBDeleteOperator;
  * @version 1.0
  * @create 2019/1/10
  */
-public abstract class AORMDelete<C,T> extends AORMClause<C,T> implements IDBDeleteOperator<T> {
+public abstract class AORMDelete<C extends AORMDelete,T> extends AORMClause<C,T> implements IDBDeleteOperator<T> {
     public AORMDelete(DBModel model) {
         super(model);
     }

@@ -14,7 +14,7 @@ import java.util.List;
  * @version 1.0
  * @create 2019/1/10
  */
-public class ORMCreate<C, T> extends AORMCreate<C, T> {
+public class ORMCreate<T> extends AORMCreate<ORMCreate, T> {
     private List<String> sqls;
     private List<List<Object>> values;
     private StringBuilder temp = new StringBuilder();
@@ -25,14 +25,13 @@ public class ORMCreate<C, T> extends AORMCreate<C, T> {
         sqls = new ArrayList<>();
         values = new ArrayList<>();
     }
-
     @Override
-    public AORMCreate<C, T> one(T insert) {
+    public AORMCreate<ORMCreate, T> one(T insert) {
         return mults(Arrays.asList(insert));
     }
 
     @Override
-    public AORMCreate<C, T> mults(List<T> inserts) {
+    public AORMCreate<ORMCreate, T> mults(List<T> inserts) {
         if (inserts == null) {
             throw new IllegalArgumentException("insert entitys not null!");
         }
@@ -56,6 +55,7 @@ public class ORMCreate<C, T> extends AORMCreate<C, T> {
         }
         return this;
     }
+
 
 
     @Override

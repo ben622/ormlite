@@ -7,7 +7,7 @@ import com.ben.android.ormlite.db_framework.DBModel;
  * @version 1.0
  * @create 2019/1/10
  */
-public class ORMDelete<C, T> extends AORMDelete<C, T> {
+public class ORMDelete<T> extends AORMDelete<ORMDelete<T>, T> {
     public ORMDelete(DBModel model) {
         super(model);
     }
