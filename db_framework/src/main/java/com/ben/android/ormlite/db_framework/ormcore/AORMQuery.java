@@ -13,4 +13,7 @@ public abstract class AORMQuery<C extends AORMQuery<C,T>,T > extends AORMClause<
     public AORMQuery(DBModel model) {
         super(model);
     }
+
+    public abstract AORMQuery<C, T> orderBy(String column, String o);
+    public abstract AORMQuery<C, T> limit(int start, int end);
 }

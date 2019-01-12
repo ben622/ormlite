@@ -104,4 +104,15 @@ public class MainActivity extends AppCompatActivity {
                 .lt("userId", 5)
                 .delete();
     }
+
+    public void query(View view) {
+        List<User> userList = ORMLite.newLite().query(User.class).gt("userId", 0).findAll();
+        for (User user : userList) {
+            Log.e(TAG, "query: "+user.toString());
+        }
+        User first = ORMLite.newLite().query(User.class).findFirst();
+        User last = ORMLite.newLite().query(User.class).findLast();
+        Log.e(TAG, "findFirst："+first.toString());
+        Log.e(TAG, "findLast："+last.toString());
+    }
 }

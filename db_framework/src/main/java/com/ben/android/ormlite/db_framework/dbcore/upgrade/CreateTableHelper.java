@@ -38,10 +38,11 @@ public class CreateTableHelper<T> extends ADBHelper<T> {
             Class<?> type = valueModel.getField().getType();
             temp.append(" "+valueModel.getValue() + " ");
             temp.append(DBPrimTypes.TYPES_MAPPINGS.get(type.getName()));
-            temp.append(valueModel.isPrimaryKey() ? " PRIMARY KEY  NOT NULL, " : ",");
+            temp.append(valueModel.isPrimaryKey() ? " UNIQUE, " : ",");
 
         }
-        temp.setLength(temp.length() - 1);
+        temp.append(" autoincrement_id INTEGER PRIMARY KEY  AUTOINCREMENT ");
+        //temp.setLength(temp.length() - 1);
         return temp;
     }
 }

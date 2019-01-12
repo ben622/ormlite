@@ -1,6 +1,7 @@
 package com.ben.android.ormlite.db_framework;
 
 import com.ben.android.ormlite.db_framework.annotation.AnnotationModel;
+import com.ben.android.ormlite.db_framework.dbcore.synchronize.Condition;
 
 /**
  * @author zhangchuan622@gmail.com
@@ -8,7 +9,10 @@ import com.ben.android.ormlite.db_framework.annotation.AnnotationModel;
  * @create 2019/1/10
  */
 public class DBModelFactory {
-    public static <T> DBModel getDBModelByClass(Class<T> cls){
+    public static <T> DBModel getDBModelByClass(Class<T> cls) {
+        if (BaseLite.getApplicationContext() == null || BaseLite.condition.state == Condition.InitState.UNINIT) {
+            throw new RuntimeException("ORMLite is not initialized, please try again with ORMLite.init()！");
+        }
         AnnotationModel annotationModel = BaseLite.getAnnotationManager().getAnnotationModelByClass(cls);
         if (annotationModel == null) {
             throw new IllegalArgumentException("not find @" + cls.getName());
