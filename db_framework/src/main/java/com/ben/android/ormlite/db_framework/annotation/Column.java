@@ -26,16 +26,6 @@ public @interface Column {
      */
     boolean foreignKey() default false;
 
-    /**
-     * 主键表
-     * @return
-     */
-    String foreignTableName() default "";
 
-    /**
-     * 主键表列名
-     * @return
-     */
-    String foreignTableColumnName() default  "";
 
 }

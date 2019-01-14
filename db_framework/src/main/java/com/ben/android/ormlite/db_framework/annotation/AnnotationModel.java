@@ -56,9 +56,10 @@ public class AnnotationModel {
     public static class ValueModel{
         private String value;
         private boolean primaryKey;
+
         private boolean foreignKey;
-        private String foreignTableName;
-        private String foreignTableColumnName;
+        private Class<?> foreignValue;
+
         private Field field;
         private Column column;
         public String getValue() {
@@ -85,21 +86,7 @@ public class AnnotationModel {
             this.foreignKey = foreignKey;
         }
 
-        public String getForeignTableName() {
-            return foreignTableName;
-        }
 
-        public void setForeignTableName(String foreignTableName) {
-            this.foreignTableName = foreignTableName;
-        }
-
-        public String getForeignTableColumnName() {
-            return foreignTableColumnName;
-        }
-
-        public void setForeignTableColumnName(String foreignTableColumnName) {
-            this.foreignTableColumnName = foreignTableColumnName;
-        }
 
         public Field getField() {
             return field;
@@ -115,6 +102,14 @@ public class AnnotationModel {
 
         public void setColumn(Column column) {
             this.column = column;
+        }
+
+        public Class<?> getForeignValue() {
+            return foreignValue;
+        }
+
+        public void setForeignValue(Class<?> foreignValue) {
+            this.foreignValue = foreignValue;
         }
     }
 }

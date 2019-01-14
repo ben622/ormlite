@@ -3,6 +3,9 @@ package com.ben.android.ormlite.db_framework.annotation;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.ben.android.ormlite.db_framework.ORMLite;
+import com.ben.android.ormlite.db_framework.exception.ORMLiteForeignKeyException;
+import com.ben.android.ormlite.db_framework.exception.ORMLitePrimaryKeyException;
 import com.ben.android.ormlite.db_framework.utils.ClassUtil;
 
 import java.lang.reflect.Field;
@@ -65,11 +68,23 @@ class DBAnnotation implements IParseAnnotation, IScannerAnnotation {
     private AnnotationModel.ValueModel parseValueModel(Field field) {
         AnnotationModel.ValueModel valueModel = new AnnotationModel.ValueModel();
         Column annotation = field.getAnnotation(Column.class);
-        valueModel.setValue(TextUtils.isEmpty(annotation.value()) ? field.getName() : annotation.value());
+        //verify primary key
+        if (valueModel.isPrimaryKey()&&annotation.primaryKey()) {
+            throw new ORMLitePrimaryKeyException("primary key already exists！");
+        }
         valueModel.setPrimaryKey(annotation.primaryKey());
+
+        //verify foreign key
+        if (annotation.foreignKey()
+                && ORMLite.getAnnotationManager().getAnnotationModelByClass(field.getType())==null){
+            throw new ORMLiteForeignKeyException("The mapped object must contain the @Table annotation!");
+        }
         valueModel.setForeignKey(annotation.foreignKey());
-        valueModel.setForeignTableName(annotation.foreignTableName());
-        valueModel.setForeignTableColumnName(annotation.foreignTableColumnName());
+        if (annotation.foreignKey()) {
+            valueModel.setValue(TextUtils.isEmpty(annotation.value()) ? field.getName() : annotation.value());
+        }
+        valueModel.setValue(TextUtils.isEmpty(annotation.value()) ? field.getName() : annotation.value());
+
 
         valueModel.setColumn(annotation);
         valueModel.setField(field);
